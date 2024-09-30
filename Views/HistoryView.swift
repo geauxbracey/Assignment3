@@ -9,8 +9,8 @@
 import SwiftUI
 
 struct HistoryView: View {
-  let history = HistoryStore()
-  @Binding var showHistory: Bool
+    @EnvironmentObject var history: HistoryStore
+    @Binding var showHistory: Bool
 
   var body: some View {
     ZStack(alignment: .topTrailing) {

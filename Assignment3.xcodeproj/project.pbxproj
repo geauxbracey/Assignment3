@@ -45,6 +45,21 @@
 			path = Assignment3UITests;
 			sourceTree = "<group>";
 		};
+		F2101E5C2CAB28A9005E7878 /* Videos */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Videos;
+			sourceTree = "<group>";
+		};
+		F2101E652CAB2954005E7878 /* Model */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F2101E6E2CAB29F0005E7878 /* Views */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Views;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +90,9 @@
 		F2101E102CAB25F3005E7878 = {
 			isa = PBXGroup;
 			children = (
+				F2101E6E2CAB29F0005E7878 /* Views */,
+				F2101E652CAB2954005E7878 /* Model */,
+				F2101E5C2CAB28A9005E7878 /* Videos */,
 				F2101E1B2CAB25F3005E7878 /* Assignment3 */,
 				F2101E2C2CAB25F5005E7878 /* Assignment3Tests */,
 				F2101E362CAB25F5005E7878 /* Assignment3UITests */,
@@ -109,6 +127,9 @@
 			);
 			fileSystemSynchronizedGroups = (
 				F2101E1B2CAB25F3005E7878 /* Assignment3 */,
+				F2101E5C2CAB28A9005E7878 /* Videos */,
+				F2101E652CAB2954005E7878 /* Model */,
+				F2101E6E2CAB29F0005E7878 /* Views */,
 			);
 			name = Assignment3;
 			packageProductDependencies = (
