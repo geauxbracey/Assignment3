@@ -29,9 +29,22 @@
 		F2101E332CAB25F5005E7878 /* Assignment3UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Assignment3UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		F2101E7A2CAB4233005E7878 /* Exceptions for "Assignment3" folder in "Assignment3" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = F2101E182CAB25F3005E7878 /* Assignment3 */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		F2101E1B2CAB25F3005E7878 /* Assignment3 */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				F2101E7A2CAB4233005E7878 /* Exceptions for "Assignment3" folder in "Assignment3" target */,
+			);
 			path = Assignment3;
 			sourceTree = "<group>";
 		};
@@ -419,6 +432,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Assignment3/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Assignment3/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -447,6 +461,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Assignment3/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Assignment3/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

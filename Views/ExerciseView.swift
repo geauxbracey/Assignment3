@@ -9,12 +9,14 @@
 import SwiftUI
 
 struct ExerciseView: View {
-  @State private var rating = 0
-  @State private var showHistory = false
-  @State private var showSuccess = false
-  @Binding var selectedTab: Int
+//@AppStorage("rating") private var rating = 0
+    //will save any changes to rating to UserDefaults
+@State private var showHistory = false
+@State private var showSuccess = false
+@Binding var selectedTab: Int
+@EnvironmentObject var history: HistoryStore
   let index: Int
-
+    
   var exercise: Exercise {
     Exercise.exercises[index]
   }
@@ -31,6 +33,8 @@ struct ExerciseView: View {
 
   var doneButton: some View {
     Button("Done") {
+        //history.addDoneExercise(Exercise.exercises[index].exerciseName)
+        //PAGE 186 instructions got error so commented out above
         timerDone = false
         //resets to false to disable the done button
         showTimer.toggle()
@@ -86,7 +90,7 @@ struct ExerciseView: View {
             startButton
             doneButton
                 .disabled(!timerDone)
-                .sheet(isPresented: $showSuccess) {
+                .sheet(isPresented: $showSuccess){
                 SuccessView(selectedTab: $selectedTab)
                 .presentationDetents([.medium, .large])
                 }
@@ -100,8 +104,7 @@ struct ExerciseView: View {
                 )
                }
                Spacer()
-               RatingView(rating: $rating)
-                .padding()
+                RatingView(exerciseIndex: index)                .padding()
         Button("History") {
           showHistory.toggle()
         }
@@ -115,6 +118,7 @@ struct ExerciseView: View {
 }
 
 struct ExerciseView_Previews: PreviewProvider {
-  static var previews: some View {
-      ExerciseView(selectedTab: .constant(3), index: 3)  }
+    static var previews: some View {
+        ExerciseView(selectedTab: .constant(0), index: 0)
+        .environmentObject(HistoryStore())}
 }
