@@ -12,11 +12,13 @@ import SwiftUI
 struct EmbossedButtonStyle: ButtonStyle {
     
     var buttonShape = EmbossedButtonShape.capsule
+    var buttonScale = 1.0
     
     func makeBody(configuration: Configuration) -> some View {
         let shadow = Color("drop-shadow")
         let highlight = Color("drop-highlight")
         return configuration.label
+            .scaleEffect(configuration.isPressed ? buttonScale : 1.0)
             .padding(10)
             .background(
                 GeometryReader { geometry in

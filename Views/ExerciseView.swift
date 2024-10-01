@@ -63,6 +63,7 @@ struct ExerciseView: View {
                 
         HStack(spacing: 150) {
             var startButton: some View {
+                //error after page 250
              RaisedButton(buttonText: "Start Exercise") {
              showTimer.toggle()
              }
