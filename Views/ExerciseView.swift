@@ -60,31 +60,6 @@ struct ExerciseView: View {
                 VideoPlayerView(videoName: exercise.videoName)
                     .frame(height: geometry.size.height * 0.45)
 
-//                    if showTimer {
-//                        TimerView(
-//                            timerDone: $timerDone,
-//                            size: geometry.size.height * 0.07
-//                        )
-//                    }
-//
-//                HStack(spacing: 150) {
-//                    startButton
-//                    doneButton
-//                        .disabled(!timerDone)
-//                    //disables the done button while timerDone is false
-//                        .sheet(isPresented: $showSuccess) {
-//                            SuccessView(selectedTab: $selectedTab)
-//                                .presentationDetents([.medium, .large])
-//            }
-//        }
-//        .font(.title3)
-//        .padding()
-//
-//        RatingView(rating: $rating)
-//          .padding()
-//
-//        Spacer()
-// commented out per page 180
                 
         HStack(spacing: 150) {
             var startButton: some View {
@@ -109,9 +84,7 @@ struct ExerciseView: View {
                }
                Spacer()
                 RatingView(exerciseIndex: index)                .padding()
-        Button("History") {
-          showHistory.toggle()
-        }
+                historyButton
         .sheet(isPresented: $showHistory) {
           HistoryView(showHistory: $showHistory)
         }
@@ -119,6 +92,20 @@ struct ExerciseView: View {
       }
     }
   }
+    var historyButton: some View {
+    //this property formats a new History button and uses default capsule shape for button style
+        Button(
+            action: {
+                showHistory = true
+            }, label: {
+                Text("History")
+                    .fontWeight(.bold)
+                    .padding([.leading, .trailing], 5)
+            })
+            .padding(.bottom, 10)
+            .buttonStyle(EmbossedButtonStyle())
+        }
+    
 }
 
 struct ExerciseView_Previews: PreviewProvider {

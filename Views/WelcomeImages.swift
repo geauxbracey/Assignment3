@@ -47,9 +47,11 @@ extension WelcomeView {
           .fontWeight(.black)
           .kerning(2)
         Text("by exercising at home")
-          .font(.headline)
-          .fontWeight(.medium)
-          .kerning(2)
+              .fixedSize(horizontal: false, vertical: true)
+          //this modifier makes text fit appropriate size depending on device
+              .font(.headline)
+              .fontWeight(.medium)
+              .kerning(2)
       }
     }
   }
