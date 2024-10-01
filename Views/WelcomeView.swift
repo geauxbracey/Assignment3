@@ -42,15 +42,7 @@ struct WelcomeView: View {
             .clipShape(Circle())
         }
 
-        Button(action: { selectedTab = 0 }) {
-          Text("Get Started")
-          Image(systemName: "arrow.right.circle")
-        }
-        .font(.title2)
-        .padding()
-        .background(
-          RoundedRectangle(cornerRadius: 20)
-          .stroke(Color.gray, lineWidth: 2))
+          getStartedButton
       }
     }
   }
@@ -60,4 +52,11 @@ struct WelcomeView_Previews: PreviewProvider {
   static var previews: some View {
     WelcomeView(selectedTab: .constant(9))
   }
+}
+
+var getStartedButton: some View {
+ RaisedButton(buttonText: "Get Started") {
+ selectedTab = 0
+ }
+ .padding()
 }

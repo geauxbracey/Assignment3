@@ -87,7 +87,11 @@ struct ExerciseView: View {
 // commented out per page 180
                 
         HStack(spacing: 150) {
-            startButton
+            var startButton: some View {
+             RaisedButton(buttonText: "Start Exercise") {
+             showTimer.toggle()
+             }
+            }
             doneButton
                 .disabled(!timerDone)
                 .sheet(isPresented: $showSuccess){

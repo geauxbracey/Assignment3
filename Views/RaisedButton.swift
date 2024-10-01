@@ -8,11 +8,16 @@
 import SwiftUI
 
 struct RaisedButton: View {
+    let buttonText: String
+    let action: () -> Void
     var body: some View {
-        Button(action: {}, label: {
-            Text("Get Started")
+        Button(action: {
+            action()
+        }, label: {
+            Text(buttonText)
                 .raisedButtonTextStyle()
         })
+        .buttonStyle(.raised)
     }
 }
 
@@ -27,7 +32,11 @@ extension Text {
 struct RaisedButton_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
-            RaisedButton()
+            RaisedButton(buttonText: "Get Started") {
+             print("Hello World")
+            }
+            //trailing closure syntax
+            //remove the action label and take the closure out of the method’s calling parentheses
                 .buttonStyle(.raised)
                 .padding(20)
         }
@@ -38,8 +47,16 @@ struct RaisedButton_Previews: PreviewProvider {
 
 struct RaisedButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .background(Color.red)
+     configuration.label
+     .frame(maxWidth: .infinity)
+        //infinity makes it take up as much space as possible
+     .padding([.top, .bottom], 12)
+     .background(
+     Capsule()
+        .foregroundColor(Color("background"))
+        .shadow(color: Color("drop-shadow"), radius: 4, x: 6, y: 6)
+        .shadow(color: Color("drop-highlight"), radius: 4, x: -6, y: -6))
+        //when I added these modifiers per page 248, drop features did not appear
     }
 }
 //this struct gives button text a red background
