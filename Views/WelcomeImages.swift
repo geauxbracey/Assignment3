@@ -1,3 +1,11 @@
+//
+//  WelcomeImages.swift
+//  Assignment3
+//
+//  Created by Kaitlyn Bracey on 10/1/24.
+//
+
+
 import SwiftUI
 
 extension WelcomeView {

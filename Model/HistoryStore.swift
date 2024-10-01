@@ -1,9 +1,9 @@
-//
+
 //  HistoryStore.swift
 //  Assignment3
 //
 //  Created by Kaitlyn Bracey on 9/30/24.
-//
+
 
 import Foundation
 
@@ -14,16 +14,25 @@ struct ExerciseDay: Identifiable {
 }
 
 class HistoryStore: ObservableObject {
- @Published var exerciseDays: [ExerciseDay] = []
+    @Published var exerciseDays: [ExerciseDay] = []
     //HistoryStore is a class rather than a structure
     //when exerciseDays changes, it publishes itself (updates) to the subscriber
+    @Published var loadingError = false
+    //when loading error is true, alert pops up
+    
+    enum FileError: Error {
+        case loadFailure
+        case saveFailure
+        //two errors we check on
+    }
 
   init() {
       func addDoneExercise(_ exerciseName: String) {
+          //saves the exercise to exerciseDays when user taps done
        let today = Date()
-       if today.isSameDay(as: exerciseDays[0].date) {
+          if let firstDate = exerciseDays.first?.date,
+           today.isSameDay(as: firstDate) {
            //if current day is users most recent exercise day, appends current exerciseName to exercises array of current day
-       print("Adding \(exerciseName)")
        exerciseDays[0].exercises.append(exerciseName)
        } else {
        exerciseDays.insert(
@@ -31,9 +40,64 @@ class HistoryStore: ObservableObject {
        ExerciseDay(date: today, exercises: [exerciseName]),
        at: 0)
        }
+          do {
+           try save()
+          } catch {
+           fatalError(error.localizedDescription)
+          }
       }
     #if DEBUG
-    createDevData()
+    //createDevData()
     #endif
+      do {
+          try load()
+      } catch {
+          loadingError = true
+      }
   }
+    
+    func load() throws {
+        guard let data = try? Data(contentsOf: dataURL) else {
+            return
+        }
+            do {
+     //if history.plist doesn't exist, will throw an error
+            let plistData = try PropertyListSerialization.propertyList(
+                from: data,
+                options: [],
+                format: nil)
+            let convertedPlistData = plistData as? [[Any]] ?? []
+            exerciseDays = convertedPlistData.map {
+                ExerciseDay(
+                    date: $0[1] as? Date ?? Date(),
+                    exercises: $0[2] as? [String] ?? [])
+            }
+        } catch {
+            throw FileError.loadFailure
+        }
+    }
+    
+    func save() throws {
+        let plistData = exerciseDays.map {
+         [$0.id.uuidString, $0.date, $0.exercises]
+        }
+        do {
+            let data = try PropertyListSerialization.data(
+             fromPropertyList: plistData,
+             format: .binary,
+             options: .zero)
+             try data.write(to: dataURL, options: .atomic)
+            } catch {
+             throw FileError.saveFailure
+            }
+    }
+    //for each element in the loop, we save a string, a date, and a [string] (2D)
+    
+    var dataURL: URL {
+     URL.documentsDirectory
+     .appendingPathComponent("history.plist")
+        //plist is property list like an array that holds info
+    }
+    
 }
+
