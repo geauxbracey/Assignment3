@@ -53,8 +53,9 @@ struct ButtonsView: View {
     }
 }
 
-#Preview {
+struct AddHistoryView_Previews: PreviewProvider {
+  static var previews: some View {
     AddHistoryView(addMode: .constant(true))
-        .environmentObject(HistoryStore(preview: true))
-    //error after page 293
+      .environmentObject(HistoryStore(preview: true))
+  }
 }
