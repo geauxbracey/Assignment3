@@ -9,12 +9,13 @@
 import SwiftUI
 
 struct ExerciseView: View {
-//@AppStorage("rating") private var rating = 0
-    //will save any changes to rating to UserDefaults
-@State private var showHistory = false
-@State private var showSuccess = false
-@Binding var selectedTab: Int
-@EnvironmentObject var history: HistoryStore
+  @EnvironmentObject var history: HistoryStore
+  @State private var showHistory = false
+  @State private var showSuccess = false
+  @State private var timerDone = false
+  @State private var showTimer = false
+
+  @Binding var selectedTab: Int
   let index: Int
     
   var exercise: Exercise {
@@ -25,10 +26,9 @@ struct ExerciseView: View {
   }
 
   var startButton: some View {
-      Button("Start Exercise") {
-       showTimer.toggle()
-          //button that toggles a boolean
-      }
+    RaisedButton(buttonText: "Start Exercise") {
+      showTimer.toggle()
+    }
   }
 
   var doneButton: some View {
@@ -46,29 +46,22 @@ struct ExerciseView: View {
     }
   }
 
-    @State private var timerDone = false
-    @State private var showTimer = false
-    // will pass timerDone to TimerView, which will set it to true when the timer reaches zero, then enable done button
-    var body: some View {
-        GeometryReader { geometry in
-            VStack {
-                HeaderView(
-                    selectedTab: $selectedTab,
-                    titleText: Exercise.exercises[index].exerciseName)
-                .padding(.bottom)
-
-                VideoPlayerView(videoName: exercise.videoName)
-                    .frame(height: geometry.size.height * 0.45)
-
-                
-        HStack(spacing: 150) {
-            var startButton: some View {
-                //error after page 250
-             RaisedButton(buttonText: "Start Exercise") {
-             showTimer.toggle()
-             }
-            }
-            doneButton
+  var body: some View {
+    GeometryReader { geometry in
+      VStack(spacing: 0) {
+        HeaderView(
+          selectedTab: $selectedTab,
+          titleText: Exercise.exercises[index].exerciseName)
+          .padding(.bottom)
+        Spacer()
+        ContainerView {
+          VStack {
+            VideoPlayerView(videoName: exercise.videoName)
+              .frame(height: geometry.size.height * 0.35)
+              .padding(20)
+            HStack(spacing: 150) {
+              startButton
+              doneButton
                 .disabled(!timerDone)
                 .sheet(isPresented: $showSuccess){
                 SuccessView(selectedTab: $selectedTab)
@@ -90,6 +83,9 @@ struct ExerciseView: View {
           HistoryView(showHistory: $showHistory)
         }
           .padding(.bottom)
+          }
+        }
+        .frame(height: geometry.size.height * 0.8)
       }
     }
   }

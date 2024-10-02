@@ -58,8 +58,13 @@ struct HistoryView: View {
 
   var headerView: some View {
     HStack {
-        EditButton()
-        //places standard edit button in headerView
+      Button {
+        addMode = true
+      } label: {
+        Image(systemName: "plus")
+      }
+      .padding(.trailing)
+      EditButton()
       Spacer()
       Text("History")
         .font(.title)
@@ -70,13 +75,6 @@ struct HistoryView: View {
         Image(systemName: "xmark.circle")
       }
       .font(.title)
-        
-        Button {
-         addMode = true
-        } label: {
-         Image(systemName: "plus")
-        }
-        .padding(.trailing)
     }
       //creates the add button (+) which sets addMode to true if pressed
       
@@ -114,17 +112,16 @@ struct HistoryView: View {
                         }
                     }
           .padding()
-          List($history.exerciseDays, editActions: [.delete]) { $day in
-              if addMode {
+      List($history.exerciseDays, editActions: [.delete]) { $day in
+        dayView(day: day)
+      }
+      if addMode {
                AddHistoryView(addMode: $addMode)
                       .background(Color.primary.colorInvert()
                       .shadow(color: .primary.opacity(0.5), radius: 7))
               }
-              //when addMode is true, shows new calendar view
-           dayView(day: day)
-          }
-      }
-      .onDisappear {
+    }
+    .onDisappear {
        try? history.save()
       }
     }
@@ -142,8 +139,9 @@ struct HistoryView: View {
 // starter code for Ch 10 had this code for previews that gave error message so used previews code from previous chapter
 
 struct HistoryView_Previews: PreviewProvider {
+  static var history = HistoryStore(preview: true)
   static var previews: some View {
     HistoryView(showHistory: .constant(true))
-          .environmentObject(HistoryStore())
+      .environmentObject(history)
   }
 }
